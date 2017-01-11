@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">SepaLtive</string>
+    <string name="txtCredits">Support: <a href="http://www.stackoverflow.com">click here</a></string>
+    <string name="follow_text">Find me on facebook</string>
+    <string name="welcome_text">Welcome to SepaLtive. This app helps you to find necessary images and videos from pixabay and lets you download them if you like. Please visit our site for more info.</string>
+</resources>
