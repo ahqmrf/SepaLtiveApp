@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
 
-    Button fbLink;
+    Button fbLink, getStarted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,15 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/ahqmrf"));
                 startActivity(browserIntent);
+            }
+        });
+
+        getStarted = (Button) findViewById(R.id.bt_get_started);
+        getStarted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+                startActivity(intent);
             }
         });
     }
