@@ -2,6 +2,7 @@ package com.example.lenovo.sepaltive;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -96,7 +97,7 @@ public class ImageResultActivity extends AppCompatActivity {
                     ImageData result = response.body();
                     images = result.getHits();
                     adapter = new ImageAdapter(images, getApplicationContext());
-                    layoutManager = new LinearLayoutManager(getApplicationContext());
+                    layoutManager = new GridLayoutManager(getApplicationContext(), 2);
                     recyclerView.setLayoutManager(layoutManager);
                     recyclerView.setAdapter(adapter);
                     totalHits.setText("Total " + images.size() + " results found");
