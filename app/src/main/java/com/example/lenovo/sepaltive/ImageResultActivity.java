@@ -28,6 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ImageResultActivity extends AppCompatActivity {
 
     private static final String TAG = "ImageResultActivity";
+    private int type;
 
     private TextView totalHits;
     private EditText searchText;
@@ -57,7 +58,8 @@ public class ImageResultActivity extends AppCompatActivity {
         doInBackground(1);
     }
 
-    private void doInBackground(int type) {
+    private void doInBackground(final int type) {
+        this.type = type;
         OkHttpClient okClient = new OkHttpClient.Builder().addInterceptor(
                 new Interceptor() {
                     @Override
@@ -97,8 +99,8 @@ public class ImageResultActivity extends AppCompatActivity {
                     layoutManager = new LinearLayoutManager(getApplicationContext());
                     recyclerView.setLayoutManager(layoutManager);
                     recyclerView.setAdapter(adapter);
-                    totalHits.setText("Total hits: " + result.getTotalHits());
-                    searchText.setText(getIntent().getStringExtra("searchKey"));
+                    totalHits.setText("Total " + images.size() + " results found");
+                    if(type == 1) searchText.setText(getIntent().getStringExtra("searchKey"));
                 }
             }
 

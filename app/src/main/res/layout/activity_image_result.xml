@@ -13,8 +13,11 @@
         android:orientation="horizontal">
 
         <EditText
+            android:textSize="15dp"
+            android:textAlignment="center"
+            android:background="@drawable/layout_border"
             android:layout_width="330dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:hint="Search Key"
             android:id="@+id/searchKey"/>
 
