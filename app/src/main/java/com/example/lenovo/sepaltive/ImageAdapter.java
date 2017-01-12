@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -40,8 +39,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
     public void onBindViewHolder(MyViewHolder holder, int position) {
         ImageData.HitsBean image = itemsBeanList.get(position);
         Picasso.with(context).load(image.getPreviewURL()).into(holder.image);
-
-        holder.score.setText("Images from:" + itemsBeanList.get(position).getUser());
     }
 
     @Override
@@ -51,13 +48,11 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView score;
         public ImageView image;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.iv_image);
-            score = (TextView) itemView.findViewById(R.id.count);
         }
     }
 }
