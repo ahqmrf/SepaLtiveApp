@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,18 +29,35 @@ public class ImageResultActivity extends AppCompatActivity {
 
     private static final String TAG = "ImageResultActivity";
 
-
+    private TextView totalHits;
+    private EditText searchText;
     private RecyclerView recyclerView;
     private ImageAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private List<ImageData.HitsBean> images;
+    private Button searchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_result);
 
+        totalHits = (TextView) findViewById(R.id.tv_hits);
+        searchText = (EditText) findViewById(R.id.searchKey);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_image);
+        searchButton = (Button) findViewById(R.id.bt_search_again);
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doInBackground(2);
+            }
+        });
+
+        doInBackground(1);
+    }
+
+    private void doInBackground(int type) {
         OkHttpClient okClient = new OkHttpClient.Builder().addInterceptor(
                 new Interceptor() {
                     @Override
@@ -58,7 +79,8 @@ public class ImageResultActivity extends AppCompatActivity {
         PixaBayAPI service = retrofitRef.create(PixaBayAPI.class);
         Map<String, String> data = new HashMap<>();
         data.put("key", Constants.API_KEY);
-        data.put("q", getSearchKey(getIntent().getStringExtra("searchKey")));
+        if(type == 1) data.put("q", getSearchKey(getIntent().getStringExtra("searchKey")));
+        else data.put("q", getSearchKey(searchText.getText().toString()));
         data.put("image_type", "photo");
 
         Call<ImageData> call = service.getImages(data);
@@ -75,6 +97,8 @@ public class ImageResultActivity extends AppCompatActivity {
                     layoutManager = new LinearLayoutManager(getApplicationContext());
                     recyclerView.setLayoutManager(layoutManager);
                     recyclerView.setAdapter(adapter);
+                    totalHits.setText("Total hits: " + result.getTotalHits());
+                    searchText.setText(getIntent().getStringExtra("searchKey"));
                 }
             }
 
