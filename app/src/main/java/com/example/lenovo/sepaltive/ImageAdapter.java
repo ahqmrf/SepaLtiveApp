@@ -5,6 +5,7 @@ package com.example.lenovo.sepaltive;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,13 +47,36 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
         return itemsBeanList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public ImageView image;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.iv_image);
+            image.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Context context = itemView.getContext();
+            Intent intent = new Intent(context, BigImageActivity.class);
+
+            ImageDataParcelable imageToPass = new ImageDataParcelable();
+            ImageData.HitsBean imageInfo = itemsBeanList.get(getAdapterPosition());
+
+            imageToPass.setComments(imageInfo.getComments());
+            imageToPass.setDownloads(imageInfo.getDownloads());
+            imageToPass.setFavorites(imageInfo.getFavorites());
+            imageToPass.setImageHeight(imageInfo.getImageHeight());
+            imageToPass.setImageWidth(imageInfo.getImageWidth());
+            imageToPass.setLikes(imageInfo.getLikes());
+            imageToPass.setUser(imageInfo.getUser());
+            imageToPass.setTags(imageInfo.getTags());
+            imageToPass.setPreviewURL(imageInfo.getPreviewURL());
+
+            intent.putExtra("imageData", imageToPass);
+            context.startActivity(intent);
         }
     }
 }

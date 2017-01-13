@@ -3,6 +3,8 @@
     package="com.example.lenovo.sepaltive">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
 
     <application
         android:allowBackup="true"
@@ -19,6 +21,7 @@
         </activity>
         <activity android:name=".SearchActivity" />
         <activity android:name=".ImageResultActivity" />
+        <activity android:name=".BigImageActivity"></activity>
     </application>
 
 </manifest>
